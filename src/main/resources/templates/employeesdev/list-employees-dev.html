@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Employee Directory</title>
+    
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	 <div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light"> 
+              <h4>Attendance Tracking System </h4>
+         </div> 
+        <h2 >Employee Directory Dev <span th:unless="${#lists.isEmpty(employees)}"
+									class="badge bg-secondary text-white"
+									th:text="${#lists.size(employees)}">[Number of
+									Elements]</span></h2>
+        
+        
+        <div th:if="${message}" th:text="${message}"
+				th:class="${'alert ' + alertClass}"></div>
+        
+        <!-- Add Employee -->
+        <a th:href="@{/employeesdev/add}" class="btn btn-primary btn-sm mb-3">Add Employee</a>
+        <!-- End of Add Employee -->
+        
+        <table class="table">
+        <thead>
+        	<th>Id</th>
+        	<th>First Name</th>
+        	<th>Last Name</th>
+        	<th>Picture</th>
+        	<th>Action</th>
+        </thead>
+        <tbody>
+        	<tr th:each="tempEmployee: ${employees}">
+        		<td th:text="${tempEmployee.emplId}"/>
+        		<td th:text="${tempEmployee.firstName}"/>
+        		<td th:text="${tempEmployee.lastName}"/>
+        		<td>
+                        <img style="width: 50px;" th:src="@{'/emplpics/' + ${tempEmployee.image}}">
+                    </td>
+        		<td>
+        		
+        			<!-- an update button link -->
+        			<a th:href="@{'/employeesdev/edit/' + ${tempEmployee.emplId}}"
+		        			class="btn btn-info btn-sm py-1">
+		        			Update
+        			</a>
+        		
+        			<!-- an delete button link -->
+        			<a th:href="@{'/employeesdev/delete/' + ${tempEmployee.emplId}}"
+		        			class="btn btn-danger btn-sm py-1 "
+		        			th:data-confirm-delete="|Are you sure you want to delete the employee ${tempEmployee.firstName} ${tempEmployee.lastName}?|"
+		        			onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+		        			Delete
+        			</a>
+        			
+        			
+        		</td>
+        		
+        		
+        	</tr>
+        
+        </tbody>
+        </table>
+        
+        
+    </div>
+
+</main>
+<!-- /.container -->
+
+
+</body>

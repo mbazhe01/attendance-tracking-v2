@@ -1,0 +1,396 @@
+
+<!-- 
+
+<meta http-equiv="refresh"
+	content="0; url='employees/list'">
+ -->
+ 
+ <!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <title>Attendance Tracking System</title>
+    
+    <!-- Bootstarp local -->
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>  
+    <link rel="stylesheet" th:href="@{css/demo.css}"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
+    <!-- Font Awesome -->
+    <!-- Font Awesome Global -->    
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Font Awesome Local
+    	<link rel="stylesheet" th:href="@{css/fontawesome.min.css}"/>
+     -->
+    
+  </head>
+  <body>
+    
+  <!-- navbar -->
+
+    <nav class="navbar navbar-expand-md">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand text-uppercase" href="#">
+          <h3>Attendance Tracking</h3>
+        </a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#myNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+
+        <div class="collapse navbar-collapse justify-content-end" id="myNavbar">
+          <ul class="navbar-nav links d-md-none">
+            <li class="nav-item">
+              <a class="nav-link active" href="#"
+                ><i class="fa fa-home text-muted mr-3"></i>Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#"
+                ><i class="fa fa-list mr-3 text-muted"></i>Locations</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link " href="#"
+                ><i class="fa fa-envelope mr-3 text-muted"></i>Employees</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#"
+                ><i class="fa fa-desktop mr-3 text-muted"></i>Departments</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#"
+                ><i class="fa fa-envelope mr-3 text-muted"></i>Attendance Codes</a
+              >
+            </li>
+          </ul>
+
+          <!-- nav icons -->
+          <ul class="navbar-nav icons">
+            <li class="nav-item mr-4">
+              <a class="nav-link" href="#"> <i class="fa fa-search"></i> </a>
+            </li>
+            <li class="nav-item mr-4">
+              <a class="nav-link" href="#"> <i class="fa fa-bell icon"></i> </a>
+            </li>
+            <li class="nav-item mr-4">
+              <a class="nav-link" href="#">
+                <i class="fa fa-comment icon"></i>
+              </a>
+            </li>
+            <li class="nav-item mr-5">
+              <a class="nav-link" href="#">
+                <img 
+                  th:src="@{img/tweedylogo.png}"
+                  class="img-fluid rounded-circle img-thumbnail"
+                  alt="Tweedy Logo"
+                  style="width:30px;"
+                />
+               
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                data-toggle="modal"
+                data-target="#sign-out"
+                href="#"
+              >
+                <i class="fa fa-sign-out"></i> Sign Out
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+   <!-- end of nav -->
+  	
+  	<!-- main content -->
+  	  	
+  	<!--  side bar -->
+  	    <div class="container-fluid">
+      <div class="row">
+        <nav
+          class="col-md-3 col-lg-2 d-none d-md-block sidebar right-padding max-viewport"
+        >
+          <a class="navbar-brand py-3" href="#">
+            <img
+              th:src="@{img/tweedylogo.png}"
+              class="img-fluid rounded-circle img-thumbnail mr-3"
+              alt="Tweedy Logo"
+              style="width:40px;"
+            />
+            John Doe
+          </a>
+          <hr />
+          <ul class="navbar-nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#"
+                ><i class="fas fa-columns text-muted mr-3"></i>Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/locations/list}">
+              <i class="fa fa-home mr-3 text-muted"></i>Locations</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/employees/list}">
+              <i class="fa fa-users mr-3 text-muted"></i>Employees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/departments/list}"
+                ><i class="fa fa-desktop mr-3 text-muted"></i>Departments</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/attendancecodes/list}"
+                ><i class="fa fa-suitcase mr-3 text-muted"></i>Attendance Codes</a
+              >
+            </li>
+            
+            <li class="nav-item">
+            	<a class="nav-link" th:href="@{/attendance/years}"
+                ><i class="fa fa-list mr-3 text-muted"></i>Daily Attendance</a>
+            </li>
+            
+            
+            <li class="nav-item">
+              <a class="nav-link " href="@{/attendance/selectReport}"
+                ><i class="fa fa-sticky-note mr-3 text-muted"></i>Reports</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link " href="#"
+                ><i class="fa fa-cogs mr-3 text-muted"></i>Admin</a>
+            
+          </ul>
+         
+        </nav>
+        <!-- end of side bar -->
+		<div class="col-md-9 col-lg-10 py-5 bg-light">
+          <!-- title row -->
+          <div class="row mb-5">
+            <div class="col">
+              <h3>
+                <span class="text-uppercase text-danger">Dashboard /</span
+                ><span class="text-muted small"> My Dashboard</span>
+              </h3>
+            </div>
+          </div>
+          <!-- end of title row -->
+          
+          <!-- cards row -->
+
+          <div class="row inform-card">
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-1 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-home body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-2">Locations &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a th:href="@{/locations/list}">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-2 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-users body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-2">Employees &nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a th:href="@{/employees/list}">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-3 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-desktop body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-3">Departments &nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a th:href="@{/departments/list}">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-4 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-suitcase body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-3">Attendance Codes</h5>
+                    
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a th:href="@{/attendancecodes/list}">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- end of cards row -->
+  		
+  		  <!-- card row 2 -->
+  		  <!-- cards row -->
+
+          <div class="row inform-card">
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-5 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-list body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-2">Daily Attendance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a th:href="@{/attendance/years}">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-6 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-sticky-note body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-2">Reports &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a th:href="@{/attendance/selectReport}">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-7 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-cogs body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-3">Admin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a href="#">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-10 mx-auto my-5">
+              <div class="card card-8 h-100">
+                <div class="card-body">
+                  <div class="flex d-flex justify-content-between">
+                    <i class="fa fa-suitcase body-icon"></i>
+                    <div class="side-text align-self-center">
+                      <h5 class="ml-3">Employee Dev</h5>
+                    	<!-- for development only -->
+                    	
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <a th:href="@{/employeesdev/list}">Manage</a> <i class="fa fa-refresh"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- end of cards row 2 -->
+  	
+  	
+  	<!-- Modal -->
+  	<div class="modal fade" id="sign-out">
+  		<div class="modal-dialog">
+  			<div class="modal-content">
+  				<div class="modal-header">
+  					<h4 class="modal-title">Already want to leave</h4>
+  					<button type="button" class="close" data-dismiss="modal">
+  					&times;
+  					</button>
+  				</div>
+  				<!--  modal body -->
+  				<div class="modal-body">
+  					It's sad to see you go. Please press Sign-out to leave.
+  				</div>
+  				<!-- modal footer -->
+  				<div class="modal-footer">
+  					<button class="btn btn-primary" type="button" data-dismiss="modal">
+  						Stay Here
+  					</button>
+  					<button class="btn btn-danger" type="button" data-dismiss="modal">
+  						Stay Here
+  					</button>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<!-- end of modal -->
+  	
+  	
+  	
+    <!-- link to employee list --
+	<hr>
+     	<a th:href="@{/employees/list}" class="btn btn-primary btn-sm" >Go To Employee List</a>      
+		
+	<hr>
+		<i class="fa fa-home fa-5x"></i>	
+	-->
+	
+		
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+     <!-- toggler button -->
+    <script>
+      $(".navbar-toggler").html(
+        '<i class="fa fa-arrow-down fa-3x text-white"></i>'
+      );
+    </script>
+    
+  </body>
+</html>

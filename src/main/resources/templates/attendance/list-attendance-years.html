@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>Attendance Years</title>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/user.js}"></script>
+	
+<body onunload="clearSpinners()">
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	 <div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light"> 
+              <h4>Attendance Tracking System </h4>
+         </div> 
+        <h4 >Attendance Years</h4>
+            
+        <form th:action="@{/attendance/showCalendar}" 
+        		th:object="${yearswrap}" method="post">
+        	<table class="table">
+	        <tbody>
+	        	<tr th:each="year, itemStat:*{attendanceYears}">
+	        		 
+	        		<td th:text="*{attendanceYears[__${itemStat.index}__].year}" /> 
+	        		
+	        		<td><a th:href="@{/attendance/showCalendar(month='1',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Jan-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Jan-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Jan
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='2',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Feb-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Feb-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Feb
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='3',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Mar-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Mar-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Mar
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='4',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Apr-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Apr-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Apr
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='5',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'May-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'May-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			May
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='6',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Jun-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Jun-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Jun
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='7',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Jul-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Jul-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Jul
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='8',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Aug-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Aug-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Aug
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='9',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Sep-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Sep-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Sep
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='10',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Oct-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Oct-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Oct
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='11',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Nov-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Nov-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Nov
+		        	 	</a></td>
+	        		<td><a th:href="@{/attendance/showCalendar(month='12',year=*{attendanceYears[__${itemStat.index}__].year})}"
+				        			class="btn btn-outline-primary btn-sm py-1"
+				        			th:id="'Dec-1-' + *{attendanceYears[__${itemStat.index}__].year}"
+				        			th:onclick="'showButtonSpinner(\'' + 'Dec-1-' + *{attendanceYears[__${itemStat.index}__].year} + '\');'">
+				        			Dec
+		        	 	</a></td>
+	        		
+	        		
+	        		
+	        	</tr>
+	        
+	        </tbody>
+        	</table>	
+        </form>    
+                
+        
+    </div>
+
+</main>
+<!-- /.container -->
+
+
+</body>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>Report Selector</title>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/user.js}"></script>
+	
+<body onunload="clearSpinners()">
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	 <div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light"> 
+              <h4>Attendance Tracking System </h4>
+         </div> 
+       
+        
+<!-- equal height card group -->
+<div class="container">
+     <h4 >Reports</h4>
+    <!-- start of row -->
+    <div class="row">
+        
+        <div class="col-sm-4 py-2">
+            <div class="card h-100 border-primary">
+                <div class="card-body">
+                    <h3 class="card-title">Attendance Summary</h3>
+                    <p class="card-text">
+                    	This report provides you with vacation/
+      					personal days usage for the selected year, monthly attendance
+      					summary, and yearly carryover days.
+                    </p>
+                    
+                </div>
+                <!-- card footer -->
+                <div class="card-footer d-flex justify-content-between">
+                  	<a th:href="@{/attendance/attendanceSummary}" class="btn btn-outline-dark">Run</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-sm-4 py-2">
+            <div class="card h-100 border-primary">
+                <div class="card-body">
+                    <h3 class="card-title">Attendance Location Summary</h3>
+                    <p class="card-text">
+                    	This report provides employee's location totals
+      						during the selected year.
+                    </p>
+                    
+                </div>
+                <!-- card footer -->
+                <div class="card-footer d-flex justify-content-between">
+                     	<a th:href="@{/attendance/locationSummary}" class="btn btn-outline-dark">Run</a>
+                </div>
+            </div>
+        </div>
+        
+       
+    </div> 
+    <!-- end of row -->
+</div>
+<!-- end of equal height card group -->
+
+</main>
+<!-- /.container -->
+
+
+</body>

@@ -1,0 +1,9 @@
+ Attach bootstrap css
+ DONE: Create index.html with cards
+ Try to compile war file
+ DONE: How to keep the cards the same size => h-100
+ Rename side bar items 
+ Location Directory -> set default location radio buttons
+ DONE: Add Location
+ Functionality implement: only one location can be default
+ DONE: Add Department

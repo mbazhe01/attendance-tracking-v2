@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Attendance Calendar</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/user.js}"></script>
+    
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	 <div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light"> 
+              <h4>Attendance Tracking System </h4>
+         </div> 
+         <!-- show user messages here: save results -->
+         <div class="alert alert-success alert-dismissible fade show text-center" 
+         	th:if="${usermessage.message !=null }" 
+         	id="message"  >
+         	<span th:text="${usermessage.message}"></span>
+         </div>
+         
+        <h4 >Attendance Calendar : <span th:text="${selecteddate.monthName}"/>&nbsp;<span th:text="${selecteddate.year}"/></h4>
+         
+        <form th:action="@{/attendance/showCalendar}" 
+        		th:object="${onemonth}" method="post">
+           		
+        	<table class="table">
+        	<!-- table header -->
+        	<thead>
+	        	<th:block th:each="tmp : ${header}">
+	        	 	<th th:text="${tmp}" />
+	        	</th:block>
+        	</thead>
+	        <tbody>
+	        <!-- week 1 -->
+	        <tr>
+	        	<th:block th:each="tmp : ${week1}">
+	        	 	<td><a th:href="${tmp.dayOfMonth}==0?'#': @{/attendance/showDailyAttendance(month=${selecteddate.month}, year=${selecteddate.year},day=${tmp.dayOfMonth})}"
+				      		class="btn btn-info btn-sm py-1 col-1" 
+				      		th:class="${tmp.hasAttendance} ? 'btn btn-outline-success btn-sm py-1 button-width' : 'btn btn-outline-primary btn-sm py-1 button-width' "	
+				         	th:text="${tmp.dayOfMonth}==0?'': ${tmp.dayOfMonth}"
+				         	th:id="'btn' + ${tmp.dayOfMonth}"
+				         	th:onclick="'showButtonSpinner(\'' + ${tmp.dayOfMonth} + '\');'"
+				         	
+				         >
+				    </a>
+				    </td>
+	        	</th:block>
+        	</tr>
+	        <!-- week 2 -->
+	        <tr>
+	        	<th:block th:each="tmp : ${week2}">
+	        	 	<td><a th:href="@{/attendance/showDailyAttendance(month=${selecteddate.month},
+	        	 													  year=${selecteddate.year}, 
+	        	 													  day=${tmp.dayOfMonth})}"
+				      		class="btn btn-info btn-sm py-1 col-1" 
+				      		th:class="${tmp.hasAttendance} ? 'btn btn-outline-success btn-sm py-1 button-width' : 'btn btn-outline-primary btn-sm py-1 button-width' "	
+				         th:text="${tmp.dayOfMonth}==0?'': ${tmp.dayOfMonth}">
+				    </a>
+				    </td>
+	        	</th:block>
+	        </tr>
+	        <!-- week 3 -->
+	        <tr>
+	        	<th:block th:each="tmp : ${week3}">
+	        	 	<td><a th:href="${tmp.dayOfMonth}==0?'#': @{/attendance/showDailyAttendance(month=${selecteddate.month}, year=${selecteddate.year},day=${tmp.dayOfMonth})}"
+				      		class="btn btn-info btn-sm py-1 col-1" 
+				      		th:class="${tmp.hasAttendance} ? 'btn btn-outline-success btn-sm py-1 button-width' : 'btn btn-outline-primary btn-sm py-1 button-width' "	
+				         th:text="${tmp.dayOfMonth}==0?'': ${tmp.dayOfMonth}">
+				    </a>
+				    </td>
+	        	</th:block>
+	        </tr>
+	        <!-- week 4 -->
+	        <tr>
+	        	<th:block th:each="tmp : ${week4}">
+	        	 	<td><a th:href="${tmp.dayOfMonth}==0?'#': @{/attendance/showDailyAttendance(month=${selecteddate.month}, year=${selecteddate.year},day=${tmp.dayOfMonth})}"
+				      		class="btn btn-info btn-sm py-1 col-1" 
+				      		th:class="${tmp.hasAttendance} ? 'btn btn-outline-success btn-sm py-1 button-width' : 'btn btn-outline-primary btn-sm py-1 button-width' "	
+				         th:text="${tmp.dayOfMonth}==0?'': ${tmp.dayOfMonth}">
+				    </a>
+				    </td>
+	        	</th:block>
+	        </tr>
+	        <!-- week 5 -->
+	        <tr>
+	        	<th:block th:each="tmp : ${week5}">
+	        	 	<td><a th:href="${tmp.dayOfMonth}==0?'#': @{/attendance/showDailyAttendance(month=${selecteddate.month}, year=${selecteddate.year},day=${tmp.dayOfMonth})}"
+				      		class="btn btn-info btn-sm py-1 col-1" 
+				      		th:class="${tmp.hasAttendance} ? 'btn btn-outline-success btn-sm py-1 button-width' : 'btn btn-outline-primary btn-sm py-1 button-width' "	
+				         th:text="${tmp.dayOfMonth}==0?'': ${tmp.dayOfMonth}">
+				    </a>
+				    </td>
+	        	</th:block>
+	        </tr>
+	        <!-- week 6 -->
+	        <tr>
+	        	<th:block th:each="tmp : ${week6}">
+	        	 	<td><a th:href="${tmp.dayOfMonth}==0?'#': @{/attendance/showDailyAttendance(month=${selecteddate.month}, year=${selecteddate.year},day=${tmp.dayOfMonth})}"
+				      		class="btn btn-info btn-sm py-1 col-1" 
+				      		th:class="${tmp.hasAttendance} ? 'btn btn-outline-success btn-sm py-1 button-width' : 'btn btn-outline-primary btn-sm py-1 button-width' "	
+				         th:text="${tmp.dayOfMonth}==0?'': ${tmp.dayOfMonth}">
+				    </a>
+				    </td>
+	        	</th:block>
+	        </tr>
+	        </tbody>
+        	</table>	
+        </form>    
+       	<div class="float-left">
+        	<a th:href="@{/attendance/years}">Back To Attendance Years</a>
+        </div>   
+    </div>
+
+</main>
+<!-- /.container -->
+
+</body>

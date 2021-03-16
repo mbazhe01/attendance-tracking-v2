@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>Attendance Summary Report</title>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:inline="javascript" th:src="@{/js/user.js}"></script>
+	
+<body onunload="clearSpinners()">
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	 <div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light"> 
+              <h4>Attendance Tracking System </h4>
+         </div> 
+        <h4 >Location Summary Report</h4>
+    </div>
+	
+    <!-- Location Monthly  -->
+  
+  	<p>
+  		<span th:text="${employee.firstName}">&nbsp;</span>
+  		<span th:text="${employee.lastName}">&nbsp;</span>
+  	</p>
+  	<p>
+  		Year: <span th:text="${year}"></span>
+  	</p>
+  
+    <form  th:object="${locmwrap}"  method="post">
+    	<table class="table">
+    		<thead>
+        			<th>Location</th>
+        			<th>Jan</th>
+        			<th>Feb</th>
+        			<th>Mar</th>
+        			<th>Apr</th>
+        			<th>May</th>
+        			<th>Jun</th>
+        			<th>Jul</th>
+        			<th>Aug</th>
+        			<th>Sep</th>
+        			<th>Oct</th>
+        			<th>Nov</th>
+        			<th>Dec</th>
+        			<th>Total</th>
+        		</thead>
+        	<tbody>
+        		<th:block th:each="locm, itemStat:*{records}">
+        		<tr>
+        			<td><span th:text="*{records[__${itemStat.index}__].locationName}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].janDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].febDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].marDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].aprDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].mayDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].junDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].julDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].augDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].sepDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].octDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].novDays}"></span></td>
+        			<td class="text-right"><span th:text="*{records[__${itemStat.index}__].decDays}"></span></td>
+        			<td class="text-right"><span class="font-weight-bold" th:text="*{records[__${itemStat.index}__].totalByLocation}"></span></td>
+        		</tr>
+        		</th:block>
+        	</tbody>
+        </table>		
+    
+    </form>
+	<p>
+		<a th:href="@{/attendance/selectReport}" >Back To Reports</a>
+	</p>
+	
+</main>
+<!-- /.container -->
+
+
+</body>

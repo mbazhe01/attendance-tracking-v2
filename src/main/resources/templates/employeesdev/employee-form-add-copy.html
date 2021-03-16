@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Add Employee</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/demo.css}" />
+<script type="text/javascript" th:inline="javascript"
+	th:src="@{/js/user.js}"></script>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+	</nav>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light">
+				<h4>Attendance Tracking System</h4>
+			</div>
+
+			<!-- show user messages here: save results 
+			<div th:if="${usermessage.message !=null }" id="message">
+				<p>Saved user updates</p>
+			</div>
+			-->
+
+
+			<script>
+         	function myFunction() {      	
+         		document.getElementById("message").style.display = "none";
+        	}
+         </script>
+
+			<h2>Add Employee</h2>
+			
+			<div th:if="${message}" th:text="${message}"
+				th:class="${'alert ' + alertClass}"></div>
+
+			<form th:action="@{/employeesdev/addNew}" th:object="${employee}"
+				method="post">
+<!-- 
+				<ul th:if="${#fields.hasErrors('*')}">
+					<li th:each="error : ${#fields.errors('*')}" th:text="${error}">error</li>
+				</ul>
+				
+				<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+					There are errors on the form.</div>
+-->
+
+				<!-- add a hidden field to handle the update -->
+				<div class="form-group row">
+					<input type="hidden" th:field="*{emplId}" />
+				</div>
+				<!-- First Name -->
+				<div class="form-group row">
+					<label for="firstName"
+						class="col-md-3 col-form-label col-form-label-md" id="firstname">First
+						Name</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{firstName}"
+							class="form-control form-control-md" id="firstName"
+							placeholder="first name" oninput="hideSaveMassage()">
+						 	
+						<span class="alert alert-danger"
+							th:if="${#fields.hasErrors('firstName')}"
+							th:errors="*{firstName}"></span>
+							
+					</div>
+
+				</div>
+				<div class="form-group row">
+					<label for="lastName"
+						class="col-md-3 col-form-label col-form-label-md">Last
+						Name</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{lastName}"
+							class="form-control form-control-md" id="lastName"
+							placeholder="last name"> <span class="error"
+							th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+						
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="middleName"
+						class="col-md-3 col-form-label col-form-label-md">Middle
+						Name</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{middleName}"
+							class="form-control form-control-md" id="middleName"
+							placeholder="middle name">
+							
+					
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="departmentId"
+						class="col-md-3 col-form-label col-form-label-md">Department</label>
+					<div class="col-md-6">
+						<select class="form-control form-control-md"
+							th:field="*{departmentId}" id="departments">
+							<!-- 
+					    <option value="0">select department</option>
+					    -->
+							<option th:each="department : ${departments}"
+								th:value="${department.departmentId}"
+								th:text="${department.departmentName}"></option>
+						</select>
+						
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="phoneIntercomeExt"
+						class="col-md-3 col-form-label col-form-label-md">Intercom
+						Extension</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{phoneIntercomeExt}"
+							class="form-control form-control-md" id="phoneIntercomeExt"
+							placeholder="phone intercom extension">
+							
+							<span class="alert alert-danger"
+							th:if="${#fields.hasErrors('phoneIntercomeExt')}"
+							th:errors="*{phoneIntercomeExt}"></span>
+							
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="description"
+						class="col-md-3 col-form-label col-form-label-md">Description</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{description}"
+							class="form-control form-control-md" id="description"
+							placeholder="employee description">
+					</div>
+				</div>
+				<!-- check box - active employee -->
+				<div class="form-group row">
+					<div class="col-sm-3">Active</div>
+					<div class="col-sm-6">
+						<div class="form-check">
+							<input th:field="*{activeStatusBool}" class="form-check-input"
+								type="checkbox" id="active"> <label
+								class="form-check-label" for="active"> </label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="startdate"
+						class="col-md-3 col-form-label col-form-label-md">Default
+						Vacation Days</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{defaultVacationDays}"
+							class="form-control form-control-md" id="startdate"
+							placeholder="allowed vacation days">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="startdate"
+						class="col-md-3 col-form-label col-form-label-md">Hire
+						Date</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{startDate}"
+							class="form-control form-control-md" id="startdate"
+							placeholder="employment start date">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="resigndate"
+						class="col-md-3 col-form-label col-form-label-md">Resign
+						Date</label>
+					<div class="col-md-6">
+						<input type="text" th:field="*{resignDate}"
+							class="form-control form-control-md" id="description"
+							placeholder="employment termination date">
+					</div>
+				</div>
+
+				<hr>
+			
+
+				<button type="submit" class="btn btn-info col-2">Save</button>
+			</form>
+			<hr>
+			<a th:href="@{/employeesdev/list}">Back To Employee List</a>
+
+
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>

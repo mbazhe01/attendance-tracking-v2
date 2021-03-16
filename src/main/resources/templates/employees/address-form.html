@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Employee Address</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Bootstrap NAV bar</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	<div class="pl-5 pt-5 pb-5 mt-5 mb-5 bg-success"> 
+                Bootstrap here 
+        </div> 
+        <h2 >Save Address</h2>
+      
+        <form th:action="@{/employees/saveAddress}" 
+        		th:object="${employeeTL}" method="post">
+        	      
+        	<!-- add a hidden field to handle the update -->      	
+    		<input type="hidden" th:field="*{emplId}"/>
+        	<!-- First Name -->
+        	<div class="form-group row">
+        		<label for="firstName" class="col-md-3 col-form-label col-form-label-md">First Name</label>
+        		<div class="col-md-6">
+        		    <input type="text" th:field="*{firstName}"  class="form-control form-control-md" id="firstName" placeholder="first name">
+      			</div>
+	       	</div>
+        	<div class="form-group row">
+        		<label for="lastName" class="col-md-3 col-form-label col-form-label-md">Last Name</label>
+        		<div class="col-md-6">
+        		    <input type="text" th:field="*{employee.lastName}"  class="form-control form-control-md" id="lastName" placeholder="last name">
+      			</div>
+        	</div>
+        	<hr>
+        	
+        </form>
+       
+    </div>
+
+</main>
+<!-- /.container -->
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+
+</body>

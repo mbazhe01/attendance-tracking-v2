@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Attendance Summary Report</title>
+<link rel="stylesheet" th:href="@{/css/demo.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:inline="javascript"
+	th:src="@{/js/user.js}"></script>
+<!-- Font Awesome Global -->
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<body onunload="clearSpinners()">
+<body>
+
+	<nav
+		class="navbar navbar-expand-md navbar-dark bg-dark fixed-top justify-content-between">
+		<a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a> <a
+			class="navbar-brand" th:href="@{/index}"><i
+			class="fa fa-home fa-2x mr-3 text-muted"></i></a>
+
+	</nav>
+
+	<main role="main" class="container">
+
+		<div class="starter-template">
+			<div class="pl-5 pt-5 pb-1 mt-4 mb-2 text-center bg-light">
+				<h4>Attendance Tracking System</h4>
+			</div>
+			<h4>Attendance Summary Report</h4>
+		</div>
+		<h5>Selected Year Attendance</h5>
+		<form th:object="${vactotals}" method="post">
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<td><span th:text="*{firstName}"></span>&nbsp;<span
+							th:text="*{lastName}"></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Vacation Year</td>
+						<td class="text-right"><span th:text="*{vacationYear}"></span></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Vacation Days Allowed</td>
+						<td class="text-right"><span th:text="*{vacationDaysAllowed}"></span></td>
+						<td>Personal Days Allowed</td>
+						<td class="text-right"><span th:text="*{personalDaysAllowed}"></span></td>
+					</tr>
+					<tr>
+						<td>Vacation Days Taken</td>
+						<td class="text-right"><span th:text="*{vacationDaysTaken}"></span></td>
+						<td>Personal Days Taken</td>
+						<td class="text-right"><span th:text="*{personalDaysTaken}"></span></td>
+					</tr>
+					<tr>
+						<td>Vacation Days Left</td>
+						<td class="text-right"><span th:text="*{vacationDaysLeft}"></span></td>
+						<td>Personal Days Left</td>
+						<td class="text-right"><span th:text="*{personalDaysLeft}"></span></td>
+					</tr>
+					<tr>
+						<td>Carry Over Days Allowed</td>
+						<td class="text-right"><span th:text="*{carryOverDays}"></span></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Carry Over Days Taken</td>
+						<td class="text-right "><span th:text="*{usedCarryOverDays}"></span></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Carry Over Days Left</td>
+						<td class="text-right"><span th:text="*{carryOverDaysLeft}"></span></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Total Vacation and Carry Over
+							Days Allowed</td>
+						<td class="text-right font-weight-bold"><span
+							th:text="*{vacAndCarryOverDaysAllowed}"></span></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="font-weight-bold">Total Vacation and Carry Over
+							Days Left</td>
+						<td class="text-right font-weight-bold"><span
+							th:text="*{vacAndCarryOverDaysLeft}"></span></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+
+		</form>
+		<!-- Attendance Monthly  -->
+		<h5>Monthly Attendance</h5>
+		<form th:object="${attendwrap}" method="post">
+			<table class="table">
+				<thead>
+					<th>Attendance Code</th>
+					<th>Jan</th>
+					<th>Feb</th>
+					<th>Mar</th>
+					<th>Apr</th>
+					<th>May</th>
+					<th>Jun</th>
+					<th>Jul</th>
+					<th>Aug</th>
+					<th>Sep</th>
+					<th>Oct</th>
+					<th>Nov</th>
+					<th>Dec</th>
+					<th>Total</th>
+				</thead>
+				<tbody>
+					<th:block th:each="attend, itemStat:*{records}">
+						<tr>
+							<td><span
+								th:text="*{records[__${itemStat.index}__].attendanceCode}"></span>&nbsp;
+								<span
+								th:text="*{records[__${itemStat.index}__].attendanceCodeDescription}"></span>
+								
+							</td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].janDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].febDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].marDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].aprDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].mayDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].junDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].julDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].augDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].sepDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].octDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].novDays}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].decDays}"></span></td>
+							<td class="text-right"><span class="font-weight-bold"
+								th:text="*{records[__${itemStat.index}__].total}"></span></td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+
+		</form>
+		<!-- vacation carry over days -->
+		<h5>Vacation Carryover Days</h5>
+		<form th:object="${carryoverwrap}" method="post">
+			<table class="table">
+				<thead>
+					<th>Year</th>
+					<th class="text-right">Vacation Days Allowed</th>
+					<th class="text-right">Vacation Days Taken</th>
+					<th class="text-right">Carry Over Days</th>
+					<th class="text-right">Carry Over Expired</th>
+					<th class="text-right">Used Carry Over Days</th>
+
+				</thead>
+				<tbody>
+					<!-- row with total -->
+					<tr>
+						<td class="font-weight-bold">Total</td>
+						<td></td>
+						<td></td>
+						<td class="text-right font-weight-bold"><span
+							th:text="${totalcarryovers}"></span></td>
+					</tr>
+
+					<th:block th:each="carry, itemStat:*{records}">
+						<tr>
+							<td><span
+								th:text="*{records[__${itemStat.index}__].vacYear}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].vacDaysAllowed}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].vacDaysTaken}"></span></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].carryOverDays}"></span></td>
+							<td align="center"><img
+								th:if="*{records[__${itemStat.index}__].carryOverExpired==1}"
+								th:src="@{/img/check-mark-2x.png}"></td>
+							<td class="text-right"><span
+								th:text="*{records[__${itemStat.index}__].usedCarryOverDays}"></span></td>	
+						</tr>
+					</th:block>
+
+
+				</tbody>
+
+			</table>
+		</form>
+		<p>
+			<a th:href="@{/attendance/selectReport}">Back To Reports</a>
+		</p>
+
+	</main>
+	<!-- /.container -->
+
+
+</body>

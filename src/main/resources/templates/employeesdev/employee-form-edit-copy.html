@@ -1,0 +1,529 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Edit Employee</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/demo.css}" />
+<script type="text/javascript" th:inline="javascript"
+	th:src="@{/js/user.js}"></script>
+	
+</head>
+
+
+
+<script th:inline="javascript">
+
+      /*<![CDATA[*/
+	    
+         var scrollsection = /*[[${scrollto}]]*/ 'User Name';
+
+       /*]]>*/
+</script>
+
+<body th:onload="|scrollToSection(scrollsection)|">
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<div class="row">
+			<div class="col-md-10"><a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a></div>
+			<div class="col-md-2"><h3 class="navbar-brand text-uppercase">Attendance Tracking System</h3></div>		
+		</div>
+		
+	</nav>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<div class="row">
+				<div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light col-md-12">
+					
+				</div>
+			</div>
+
+
+			<h2>Edit Employee</h2>
+
+			<div th:if="${message}" th:text="${message}"
+				th:class="${'alert ' + alertClass}" id="message"></div>
+
+			<form th:action="@{/employeesdev/edit}" th:object="${employee}"
+				method="post" 
+				enctype="multipart/form-data"
+				>
+
+				<!-- add a hidden field to handle the update -->
+				<div class="form-group row">
+					<input type="hidden" th:field="*{emplId}" />
+				</div>
+
+
+				<!-- Employee Info grid -->
+				<div class="row border">
+					<div class="col-md-8">
+
+						<div class="row">
+							<div class="col-md-3">
+								<label for="firstName" class="form-label font-weight-bold"
+									id="firstname">First Name</label>
+							</div>
+							<div class="col-md-3">
+								<label for="lastName" class="form-label font-weight-bold">Last
+									Name</label>
+							</div>
+							<div class="col-md-3">
+								<label for="middleName" class="form-label font-weight-bold">Middle
+									Name</label>
+							</div>
+							<div class="col-md-3">
+								<label for="active" class="col-form-label font-weight-bold">Active
+								</label>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-3">
+								<input type="text" th:field="*{firstName}"
+									class="form-control form-control-md" id="firstName"
+									placeholder="first name" onclick="hideErrMsg('firstNameErr')"
+									autocomplete="__away">
+								<p class="alert alert-danger"
+									th:if="${#fields.hasErrors('firstName')}"
+									th:errors="*{firstName}" id="firstNameErr"></p>
+
+							</div>
+
+							<div class="col-md-3">
+								<input type="text" th:field="*{lastName}"
+									class="form-control form-control-md" id="lastName"
+									placeholder="last name" onclick="hideErrMsg('lastNameErr')"
+									autocomplete="__away">
+								<p class="alert alert-danger"
+									th:if="${#fields.hasErrors('lastName')}"
+									th:errors="*{lastName}" id="lastNameErr"></p>
+
+							</div>
+							<div class="col-md-3">
+								<input type="text" th:field="*{middleName}"
+									class="form-control form-control-md" id="middleName"
+									placeholder="middle name">
+							</div>
+							<div class="col-md-2">
+
+								<div class="col">
+									<input th:field="*{activeStatusBool}"
+										class="form-check-input my-checkbox" type="checkbox"
+										id="active">
+								</div>
+
+							</div>
+
+						</div>
+
+
+						<div class="row">
+							<div class="col-md-3">
+								<label for="firstName" class="col-form-label font-weight-bold"
+									id="department">Department</label>
+							</div>
+							<div class="col-md-3">
+								<label for="firstName" class="col-form-label font-weight-bold"
+									id="defaultVacationDaysLbl">Default Vacation Days</label>
+							</div>
+							<div class="col-md-3">
+								<label for="lastName" class="col-form-label font-weight-bold">Hire
+									Date</label>
+							</div>
+							<div class="col-md-3">
+								<label for="middleName" class="col-form-label font-weight-bold">Termination
+									Date</label>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-3">
+								<select class="form-control form-control-md"
+									th:field="*{departmentId}" id="departments">
+									<!-- 
+					    			<option value="0">select department</option>
+					   				 -->
+									<option th:each="department : ${departments}"
+										th:value="${department.departmentId}"
+										th:text="${department.departmentName}"></option>
+								</select>
+
+							</div>
+							<div class="col-md-3">
+								<input type="text" th:field="*{defaultVacationDays}"
+									class="form-control form-control-md" id="startdate"
+									placeholder="allowed vacation days per year"
+									onclick="hideErrMsg('defaultVacationDaysErr')">
+								<p class="alert alert-danger"
+									th:if="${#fields.hasErrors('defaultVacationDays')}"
+									th:errors="*{defaultVacationDays}" id="defaultVacationDaysErr">
+								</p>
+							</div>
+							<div class="col-md-3">
+								<input type="text" th:field="*{startDate}"
+									class="form-control form-control-md" id="startdate"
+									placeholder="employment start date"
+									onclick="hideErrMsg('startDateErr')">
+								<p class="alert alert-danger"
+									th:if="${#fields.hasErrors('startDate')}"
+									th:errors="*{startDate}" id="startDateErr"></p>
+							</div>
+
+							<div class="col-md-3">
+								<input type="text" th:field="*{resignDate}"
+									class="form-control form-control-md" id="resignDate"
+									placeholder="employment termination date"
+									onclick="hideErrMsg('resignDateErr')">
+								<p class="alert alert-danger"
+									th:if="${#fields.hasErrors('resignDate')}"
+									th:errors="*{resignDate}" id="resignDateErr"></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<label for="lastName" class="col-form-label font-weight-bold">Intercom
+									Extension</label> <input type="text" th:field="*{phoneIntercomeExt}"
+									class="form-control form-control-md" id="phoneIntercomeExt"
+									placeholder="phone intercom extension"
+									onclick="hideErrMsg('intercomExtension')" autocomplete="__away">
+								<p class="alert alert-danger"
+									th:if="${#fields.hasErrors('phoneIntercomeExt')}"
+									th:errors="*{phoneIntercomeExt}" id="intercomExtension"></p>
+
+							</div>
+							<Div class="col-md-9">
+
+								<label for="description" class="col-form-label font-weight-bold">Description</label>
+								<input type="text" th:field="*{description}"
+									class="form-control form-control-md" id="description"
+									placeholder="employee description here">
+
+							</Div>
+						</div>
+					</div>
+					<!-- Image Section -->
+					<div class="col-md-4">
+						<label for="" class="col-form-label font-weight-bold">Image:</label>
+						<input type="file" class="form-control" th:name="file"
+							th:id="file"> 
+						<img class="rounded mx-auto d-block" src="#" alt=""
+							id="imgPreview1"> 
+						<img class="rounded mx-auto d-block mb-2"
+							th:src="@{'/emplpics/' + ${employee.image}}"
+							th:alt="' ' +${employee.image}" width="200" height="200">
+
+					</div>
+					<!-- End of Image section -->
+				</div>
+				<!-- Employee Info grid -->
+
+
+				<!-- Phones -->
+				<div class="form-group border mt-2" id="PhoneSection">
+					<div class="row">
+						<div class="col-md-12">
+							<h5 class="fluid">
+								Phones <span th:unless="${#lists.isEmpty(employee.phones)}"
+									class="badge bg-secondary text-white"
+									th:text="${#lists.size(employee.phones)}">[Number of
+									Elements]</span>
+							</h5>
+						</div>
+					</div>
+
+
+					<!-- Phone section -->
+					<div class="row">
+
+						<div th:style="${phoneSectionStyle}" class="col-md-12">
+							<button class="btn btn-primary btn-sm mb-3" type="submit"
+								name="newphone" value="NewphoneOldemployee">Add Phone</button>
+
+
+
+							<table class="table">
+								<thead>
+									<tr>
+										<th style="display: none;">Id</th>
+										<th scope="col" style="width: 20%">Phone Label</th>
+										<th scope="col" style="width: 20%">Phone Number</th>
+										<th scope="col">Description</th>
+										<th scope="col" style="width: 10%">Action</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="phone, itemStat : *{phones}"
+										th:id="${phone.fakeId}">
+										<td style="display: none;"><input style="width: 50px;"
+											th:field="*{phones[__${itemStat.index}__].phoneId}"
+											id="phoneId" readonly /></td>
+
+										<!--
+										<td><input class="form-control form-control-md"
+											th:field="*{phones[__${itemStat.index}__].phoneLabel}"
+											autocomplete="__away" data-width="100" /></td>
+										-->
+
+										<td><select class="form-control form-control-md"
+											th:field="*{phones[__${itemStat.index}__].phoneLabel}">
+
+												<option value="">select label</option>
+
+												<option th:each="pt : ${phonetypes}"
+													th:value="${pt.typeDescr}" th:text="${pt.typeDescr}"></option>
+										</select></td>
+
+
+										<td><input class="form-control form-control-md"
+											th:field="*{phones[__${itemStat.index}__].phoneNumber}"
+											th:id="'pnum' + ${phone.fakeId}" autocomplete="__away" /></td>
+
+										<td><input class="form-control form-control-md"
+											th:field="*{phones[__${itemStat.index}__].description}"
+											id="phoneDescriprion" autocomplete="__away" /></td>
+
+										<!-- delete phone  -->
+										<td>
+											<!--
+											<button class="btn btn-danger btn-sm" type="submit"
+												name="deletephone"
+												th:value="*{phones[__${itemStat.index}__].fakeId}"
+												th:data-confirm-delete="|Are you sure you want to delete the phone *{phones[__${itemStat.index}__].phoneNumber}?|"
+												onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Delete
+											</button>
+											-->
+											<button class="btn btn-danger btn-sm" type="button"
+												name="deletephone"
+												th:value="*{phones[__${itemStat.index}__].fakeId}"
+												th:data-confirm-delete="|*{phones[__${itemStat.index}__].fakeId}|"
+												th:attr="onclick=|deletePhone('*{phones[__${itemStat.index}__].fakeId}')|">Delete
+
+											</button>
+
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<p th:if="${#lists.isEmpty(employee.phones)}">There are no
+								phones yet.</p>
+
+						</div>
+
+
+					</div>
+
+
+
+				</div>
+
+				<!-- Start of Address Section -->
+				<div class="form-group border" id="AddressSection">
+					<div class="row">
+
+						<div class="col-8">
+							<h5 class="fluid">
+								Addresses <span
+									th:unless="${#lists.isEmpty(employee.addresses)}"
+									class="badge bg-secondary text-white"
+									th:text="${#lists.size(employee.addresses)}">[Number of
+									Elements]</span>
+							</h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div th:style="${addressSectionStyle}" class="col-12">
+							<!-- Add new address -->
+							<button class="btn btn-primary btn-sm mb-3" type="submit"
+								name="newaddress" value="NewaddressOldemployee">Add
+								Address</button>
+							<!-- Addresses -->
+							<table class="table">
+								<thead>
+									<tr>
+										<th style="display: none;">Id</th>
+										<th style="width: 15%">Address Label</th>
+										<th>Address 1</th>
+										<th style="width: 15%">Address 2</th>
+										<th style="width: 15%">City</th>
+										<th style="width: 8%">State</th>
+										<th style="width: 9%">Zip</th>
+										<th style="width: 10%">Action</th>
+
+									</tr>
+								</thead>
+								<tr th:each="address, itemStat : *{addresses}"
+									th:id="${address.idTag}">
+									<td style="display: none;"><input
+										class="form-control form-control-md"
+										th:field="*{addresses[__${itemStat.index}__].addrId}" readonly /></td>
+									<!-- 
+										<td><input class="form-control form-control-md"
+											th:field="*{addresses[__${itemStat.index}__].addressLabel}"
+											id="addrLabel" autocomplete="__away" /></td>
+											-->
+
+									<td><select class="form-control form-control-md"
+										th:field="*{addresses[__${itemStat.index}__].addressLabel}">
+
+											<option value="">select label</option>
+
+											<option th:each="at : ${addrtypes}"
+												th:value="${at.typeDescr}" th:text="${at.typeDescr}"></option>
+									</select></td>
+
+									<td><input th:id="${'addr' + address.idTag}"
+										class="form-control form-control-md"
+										th:field="*{addresses[__${itemStat.index}__].address1}"
+										autocomplete="__away" /></td>
+									<td><input class="form-control form-control-md"
+										th:field="*{addresses[__${itemStat.index}__].address2}"
+										autocomplete="__away" /></td>
+									<td><input class="form-control form-control-md"
+										th:field="*{addresses[__${itemStat.index}__].city}" id="city"
+										autocomplete="__away" /></td>
+									<td><input class="form-control form-control-md"
+										th:field="*{addresses[__${itemStat.index}__].state}"
+										autocomplete="__away" /></td>
+									<td><input class="form-control form-control-md"
+										th:field="*{addresses[__${itemStat.index}__].zip}" id="zip"
+										autocomplete="__away" /></td>
+
+									<!-- delete address  -->
+									<td>
+										<!-- 
+											<button class="btn btn-danger btn-sm" type="submit"
+												name="deleteaddress"
+												th:value="*{addresses[__${itemStat.index}__].addrId}"
+												th:data-confirm-delete="|Are you sure you want to delete the address *{addresses[__${itemStat.index}__].address1}?|"
+												onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Delete
+											</button>
+											-->
+
+										<button class="btn btn-danger btn-sm" type="button"
+											name="deleteaddress"
+											th:value="*{addresses[__${itemStat.index}__].idTag}"
+											th:attr="onclick=|deleteAddress('*{addresses[__${itemStat.index}__].idTag}')|">Delete
+										</button>
+
+									</td>
+								</tr>
+
+							</table>
+							<p th:if="${#lists.isEmpty(employee.addresses)}">There are no
+								addresses yet.</p>
+						</div>
+
+					</div>
+				</div>
+				<!-- End of addresses -->
+
+
+				<!-- Notes  -->
+				<div class="form-group border" id="NotesSection">
+					<div class="row">
+
+						<div class="col-8">
+							<h5 class="fluid">
+								Notes <span th:unless="${#lists.isEmpty(employee.notes)}"
+									class="badge bg-secondary text-white"
+									th:text="${#lists.size(employee.notes)}">[Number of
+									Elements]</span>
+							</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div th:style="${addressSectionStyle}" class="col-12">
+							<!-- Add new note -->
+							<button class="btn btn-primary btn-sm mb-3" type="submit"
+								name="newnote" value="NewNoteOldemployee">Add Note</button>
+							<!-- Notes -->
+							<table class="table">
+								<thead>
+									<tr>
+										<th style="display: none;">Id</th>
+										<th style="width: 17%">Note Date</th>
+										<th>Note</th>
+										<th style="width: 10%">Action</th>
+
+									</tr>
+								</thead>
+								<tr th:each="note, itemStat : *{notes}" th:id="${note.idTag}">
+									<td style="display: none;"><input style="width: 50px;"
+										readonly th:field="*{notes[__${itemStat.index}__].noteId}"
+										id="noteId" /></td>
+									<td><input placeholder="auto generated"
+										class="form-control form-control-md"
+										th:field="*{notes[__${itemStat.index}__].noteDate}"
+										id="noteDate" readonly /></td>
+									<td><input class="form-control form-control-md"
+										th:field="*{notes[__${itemStat.index}__].note}" id="note"
+										autocomplete="__away" th:id="${'note' + note.idTag}" /></td>
+
+									<!-- delete note  -->
+									<td>
+										<button class="btn btn-danger btn-sm" type="submit"
+											name="deletenote"
+											th:value="*{notes[__${itemStat.index}__].noteId}"
+											th:attr="onclick=|deleteNote('*{notes[__${itemStat.index}__].idTag}')|">Delete
+										</button>
+									</td>
+								</tr>
+							</table>
+							<p th:if="${#lists.isEmpty(employee.notes)}">There are no
+								notes yet.</p>
+						</div>
+					</div>
+					<!-- End of notes -->
+				</div>
+
+
+				<!-- Submit and Back buttons -->
+				<div class="row">
+					<Div class="col-6">
+						<button type="submit" class="btn btn-info mb-3">Save</button>
+						<a class="btn btn-info mb-3" th:href="@{/employeesdev/list}">Back
+							To Employee List</a>
+					</Div>
+					<Div class="col-6"></Div>
+
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+
+	
+	<script>
+
+    $(function () {
+        
+        $("#file").change(function () {
+            readURL(this, '1');
+        });
+
+    });
+
+    </script>
+
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/classic/ckeditor.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Add Location</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/index}">Attendance Tacking</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	<div class="pl-5 pt-5 pb-5 mt-5 mb-5 bg-success"> 
+                Bootstrap here 
+        </div> 
+        <h2 >Save Attendance Code</h2>
+      
+        <form th:action="@{/attendancecodes/save}" 
+        		th:object="${attendancecode}" method="post">
+        	      
+        	<!-- add a hidden field to handle the update -->
+        	
+    		<input type="hidden" th:field="*{attendanceCodeId}"/>
+        	<!-- -->
+        	<input type="text" th:field="*{attendanceCode}" class="form-control mb-4 col-4" 
+        			placeholder="attendance code" />
+        	
+        	<input type=text th:field="*{description}" class="form-control mb-4 col-4" 
+        			placeholder="description" />
+        	
+        	<button type="submit" class="btn btn-info col-2">Save</button>
+        </form>
+       
+       <hr>
+     	<a th:href="@{/attendancecodes/list}" >Back To Attendance Code</a>
+       
+    </div>
+
+</main>
+<!-- /.container -->
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+</body>

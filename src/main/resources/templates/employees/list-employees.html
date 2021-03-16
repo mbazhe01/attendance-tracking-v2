@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Employee Directory</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+    	 <div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light"> 
+              <h4>Attendance Tracking System </h4>
+         </div> 
+        <h2 >Employee Directory</h2>
+        
+        <!-- Add Employee -->
+        <a th:href="@{/employees/showFormForAdd}" class="btn btn-primary btn-sm mb-3">Add Employee</a>
+        <!-- End of Add Employee -->
+        
+        <table class="table">
+        <thead>
+        	<th>Id</th>
+        	<th>First Name</th>
+        	<th>Last Name</th>
+        	<th>Action</th>
+        </thead>
+        <tbody>
+        	<tr th:each="tempEmployee: ${employees}">
+        		<td th:text="${tempEmployee.emplId}"/>
+        		<td th:text="${tempEmployee.firstName}"/>
+        		<td th:text="${tempEmployee.lastName}"/>
+        		<!-- an update button link -->
+        		<td>
+        			<a th:href="@{/employees/showFormForUpdate(employeeId=${tempEmployee.emplId})}"
+		        			class="btn btn-info btn-sm py-1">
+		        			Update
+        			</a>
+        			<!-- an delete button link -->
+        		
+        			<a th:href="@{/employees/delete(employeeId=${tempEmployee.emplId})}"
+		        			class="btn btn-danger btn-sm py-1 "
+		        			onclick="if(!(confirm('Are you sure you want to delete this employee?'))) return false">
+		        			Delete
+        			</a>
+        		
+        		</td>
+        		
+        		
+        	</tr>
+        
+        </tbody>
+        </table>
+        
+        <button type="button" class="btn btn-primary">Primary</button>
+    </div>
+
+</main>
+<!-- /.container -->
+
+
+</body>

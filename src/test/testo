@@ -1,0 +1,22 @@
+<form th:action="@{/employees/save}" 
+        		th:object="${employee}" method="post">
+        		
+       <div class="form-group row">    	
+    			<input type="hidden" th:field="*{emplId}"/>
+    	</div>
+    	
+    	<div class="form-group row">
+        		<label for="departmentId" class="col-md-3 col-form-label col-form-label-md">Department</label>
+        		<div class="col-md-6">
+        			<select class="form-control form-control-md" th:field="*{departmentId}"  id="departments">
+        				<!-- 
+					    <option value="0">select department</option>
+					    -->
+					    <option th:each="department : ${departments}" th:value="${department.departmentId}" th:text="${department.departmentName}"></option>
+				    </select>
+        			
+        			<!--  
+        				<input type="text" th:field="*{departmentId}"  class="form-control form-control-md" id="departmentid" placeholder="department">
+      				-->
+      			</div>	
+        </div>

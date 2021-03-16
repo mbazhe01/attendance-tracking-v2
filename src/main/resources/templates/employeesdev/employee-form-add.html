@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Add Employee</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/demo.css}" />
+<script type="text/javascript" th:inline="javascript"
+	th:src="@{/js/user.js}"></script>
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand" th:href="@{/index}">Tweedy, Browne Co.</a>
+	</nav>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<div class="pl-5 pt-5 pb-1 mt-3 mb-2 text-center bg-light">
+				<h4>Attendance Tracking System</h4>
+			</div>
+
+			<!-- show user messages here: save results 
+			<div th:if="${usermessage.message !=null }" id="message">
+				<p>Saved user updates</p>
+			</div>
+			-->
+
+
+			<script>
+         	function myFunction() {      	
+         		document.getElementById("message").style.display = "none";
+        	}
+         </script>
+
+			<h2>Add Employee</h2>
+
+			<div th:if="${message}" th:text="${message}"
+				th:class="${'alert ' + alertClass}" id="message">
+				
+			</div>
+
+			<form th:action="@{/employeesdev/addNew}" th:object="${employee}"
+				method="post">
+
+				<!-- add a hidden field to handle the update -->
+				<div class="form-group row">
+					<input type="hidden" th:field="*{emplId}" />
+				</div>
+
+
+				<!-- First Name, Last name, Middle Name -->
+				<div class="form-group row">
+
+					<div class="col-md-3">
+						<label for="firstName" class="form-label font-weight-bold" id="firstname">First
+							Name</label> <input type="text" th:field="*{firstName}"
+							class="form-control form-control-md" id="firstName"
+							placeholder="first name" onclick="hideErrMsg('firstNameErr')">
+						<p class="alert alert-danger"
+							th:if="${#fields.hasErrors('firstName')}"
+							th:errors="*{firstName}"
+							id="firstNameErr"
+							></p>
+
+					</div>
+
+					<div class="col-md-3">
+						<label for="lastName" class="form-label font-weight-bold">Last Name</label> <input
+							type="text" th:field="*{lastName}"
+							class="form-control form-control-md" id="lastName"
+							placeholder="last name" onclick="hideErrMsg('lastNameErr')" >
+						<p class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}"
+							th:errors="*{lastName}"
+							id="lastNameErr"
+							></p>
+
+					</div>
+
+					<div class="col-md-3">
+						<label for="middleName" class="form-label font-weight-bold">Middle Name</label> <input
+							type="text" th:field="*{middleName}"
+							class="form-control form-control-md" id="middleName"
+							placeholder="middle name">
+
+
+					</div>
+
+				</div>
+
+
+				<div class="form-group row">
+
+					<div class="col-md-3">
+						<label for="firstName" class="col-form-label font-weight-bold" id="firstname">Department</label>
+						<select class="form-control form-control-md"
+							th:field="*{departmentId}" id="departments">
+							<!-- 
+					    <option value="0">select department</option>
+					    -->
+							<option th:each="department : ${departments}"
+								th:value="${department.departmentId}"
+								th:text="${department.departmentName}"></option>
+						</select>
+
+					</div>
+
+					<div class="col-md-3">
+						<label for="lastName" class="col-form-label font-weight-bold">Intercom
+							Extension</label> <input type="text" th:field="*{phoneIntercomeExt}"
+							class="form-control form-control-md" id="phoneIntercomeExt"
+							placeholder="phone intercom extension" onclick="hideErrMsg('intercomExtension')">  <p
+							class="alert alert-danger"
+							th:if="${#fields.hasErrors('phoneIntercomeExt')}"
+							th:errors="*{phoneIntercomeExt}"
+							id="intercomExtension"
+							></p>
+
+					</div>
+
+					<!-- check box - active employee -->
+
+					<div class="col-md-3">
+						<div>
+							<label for="lastName" class="col-form-label font-weight-bold">Active </label>
+						</div>
+						<div class="col">
+							<input th:field="*{activeStatusBool}"
+								class="form-check-input my-checkbox" type="checkbox" id="active">
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-md-3">
+						<label for="firstName" class="col-form-label font-weight-bold" id="firstname">Default
+							Vacation Days</label> <input type="text"
+							th:field="*{defaultVacationDays}"
+							class="form-control form-control-md" id="startdate"
+							placeholder="allowed vacation days per year"
+							onclick="hideErrMsg('defaultVacationDaysErr')">
+						<p class="alert alert-danger"
+							th:if="${#fields.hasErrors('defaultVacationDays')}"
+							th:errors="*{defaultVacationDays}"
+							id="defaultVacationDaysErr"
+							></p>
+					</div>
+
+					<div class="col-md-3">
+						<label for="lastName" class="col-form-label font-weight-bold">Hire Date</label> <input
+							type="text" th:field="*{startDate}"
+							class="form-control form-control-md" id="startdate"
+							placeholder="employment start date" onclick="hideErrMsg('startDateErr')">
+						<p class="alert alert-danger"
+							th:if="${#fields.hasErrors('startDate')}"
+							th:errors="*{startDate}"
+							id="startDateErr"></p>
+
+					</div>
+
+					<div class="col-md-3">
+						<label for="middleName" class="col-form-label font-weight-bold">Termination
+							Date</label> <input type="text" th:field="*{resignDate}"
+							class="form-control form-control-md" id="description"
+							placeholder="employment termination date" onclick="hideErrMsg('resignDateErr')">
+						<p class="alert alert-danger"
+							th:if="${#fields.hasErrors('resignDate')}"
+							th:errors="*{resignDate}"
+							id="resignDateErr"></p>
+					</div>
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-md-9">
+						<label for="description" class="col-form-label font-weight-bold">Description</label>
+						<input type="text" th:field="*{description}"
+							class="form-control form-control-md" id="description"
+							placeholder="employee description here">
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-info col-2 mb-3 mt-3">Save</button>
+			</form>
+
+			<a th:href="@{/employeesdev/list}">Back To Employee List</a>
+		</div>
+		<!-- /.container -->
+
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>

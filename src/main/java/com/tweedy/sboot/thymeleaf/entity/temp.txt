@@ -1,0 +1,5 @@
+{"timestamp":"2021-02-17T19:12:01.352+0000",
+"message":"Handler dispatch failed; 
+nested exception is java.lang.Error: 
+Unresolved compilation problems: \n\t
+The method foundDuplicatVacationYear(List<Vacation>) in the type VacationController is not applicable for the arguments (List<VacationTL>)\n\tType mismatch: cannot convert from element type VacationTL to Vacation\n\tThe constructor VacationsWrapper(List<Vacation>) is undefined\n","details":"uri=/vacations/saveVacationWithValidation"}
