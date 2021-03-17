@@ -93,6 +93,7 @@ public class EmployeeDevController {
 
 	}
 
+	// save new employee
 	@PostMapping("/addNew")
 	public String add(@Valid @ModelAttribute("employee") EmployeeDev employee, Errors errors,
 			RedirectAttributes redirectAttributes, Model theModel) throws IOException {
@@ -150,7 +151,7 @@ public class EmployeeDevController {
 		theModel.addAttribute("departments", departments);
 		theModel.addAttribute("phonetypes", phoneTypes);
 		theModel.addAttribute("addrtypes", addrTypes);
-		theModel.addAttribute("usermessage", new UserMessage(null));
+		//theModel.addAttribute("usermessage", new UserMessage(null));
 
 		return "employeesdev/employee-form-edit";
 
