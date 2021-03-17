@@ -84,6 +84,8 @@ function scrollToSection(elId) {
 }
 
 function hideSaveMassage() {
+	
+	console.log("hideSaveMessage()");
 	document.getElementById("message").style.display = "none";
 }
 

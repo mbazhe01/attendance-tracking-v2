@@ -1,5 +1,6 @@
 package com.tweedy.sboot.thymeleaf.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,7 +12,6 @@ import javax.validation.Valid;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -160,7 +160,8 @@ public class EmployeeDevController {
 	@Transactional
 	@PostMapping("/edit")
 	public String showFormForUpdate(@Valid @ModelAttribute("employee") EmployeeDev employee,
-			BindingResult bindingResult, Errors errors, RedirectAttributes redirectAttributes, MultipartFile file,
+			BindingResult bindingResult, Errors errors, RedirectAttributes redirectAttributes, 
+			MultipartFile file,
 			Model theModel, @RequestParam(required = false, value = "newnote") String newNote,
 			@RequestParam(required = false, value = "newaddress") String newAddress,
 			@RequestParam(required = false, value = "newphone") String newPhone) throws IOException {
@@ -172,13 +173,14 @@ public class EmployeeDevController {
 		// for address label drop box
 		List<AddressType> addrTypes = addrService.getAddressTypes();
 
+		String tmpFileName = "tmp_" + file.getOriginalFilename();
+		Path tmpPath = null;
+		
 		if (null != errors && errors.getErrorCount() > 0) {
-
 			
 			byte[] tmpBytes = file.getBytes();
-			String tmpFileName = "tmp" + file.getOriginalFilename();
-									
-			Path tmpPath = Paths.get(mediaPath + tmpFileName);
+												
+			tmpPath = Paths.get(mediaPath + tmpFileName);
 			
 			if (!file.isEmpty()) {
 				if (tmpFileName.endsWith("jpg") || tmpFileName.endsWith("png")) 
@@ -191,6 +193,8 @@ public class EmployeeDevController {
 			for (ObjectError e : errs)
 				errMsg += e.getDefaultMessage();
 
+			employee.setImage(tmpFileName);
+			
 			theModel.addAttribute("selectedFile", tmpPath);
 			theModel.addAttribute("message", "Employee Edit failed. " + errMsg);
 			theModel.addAttribute("alertClass", "alert-danger");
@@ -240,10 +244,10 @@ public class EmployeeDevController {
 			boolean fileOK = false;
 			byte[] bytes = file.getBytes();
 			String fileName = file.getOriginalFilename();
-									
+			
 			Path path = Paths.get(mediaPath + fileName);
 			
-			if (!file.isEmpty()) {
+			if (!file.equals("")) {
 				if (fileName.endsWith("jpg") || fileName.endsWith("png")) {
 					fileOK = true;
 				}
@@ -252,7 +256,7 @@ public class EmployeeDevController {
 				fileOK = true;
 			}
 
-			if (!fileOK) {
+			if (!fileOK && !file.isEmpty() ) {
 				theModel.addAttribute("message", "Image file has to be jpg or png.");
 				theModel.addAttribute("alertClass", "alert-danger");
 				return "employeesdev/employee-form-edit";
@@ -289,19 +293,24 @@ public class EmployeeDevController {
 						Files.deleteIfExists(path2);
 					}
 
-					employee.setImage(fileName); // new image file
-					
-					Files.write(path, bytes);
-					
-					//ResizeImage resizeImage = new ResizeImage(imgWidth, imgHeight, path, resizedPath);
-					//resizeImage.resizeAndWrite();
-					
+					employee.setImage(fileName); // new image file			
+				
+					Files.write(path, bytes);			
 
-				} else {
-					employee.setImage(employee.getImage());
+				} 
+				
+				if(employee.getImage().startsWith("tmp_")) {
+					Path oldPath = Paths.get(mediaPath + currentEmployee.getImage());
+					tmpPath = Paths.get(mediaPath + employee.getImage());
+					Path target = Paths.get(mediaPath + employee.getImage().replace("tmp_", ""));
+					employee.setImage(employee.getImage().replace("tmp_", ""));
+					
+					Files.copy(tmpPath, target);			
+					Files.deleteIfExists(tmpPath);
+					Files.deleteIfExists(oldPath);
+					
 				}
-				if(employee.getImage()==null)
-					employee.setImage(currentEmployee.getImage());
+				
 				employeeService.save(employee);
 
 			} catch (Exception ex) {

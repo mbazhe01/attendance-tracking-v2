@@ -41,7 +41,7 @@
 				<div class="col-9">
 					<h2>Edit Employee</h2>
 				</div>
-				<Div class="col-3">
+				<Div class="col-3 text-right">
 					
 					<a class="btn btn-info mb-3" th:href="@{/employeesdev/list}">Back
 						To Employee List</a>
@@ -62,6 +62,11 @@
 
 				<!-- Employee Info grid -->
 				<div class="row border">
+				
+					<!-- hidden fields -->
+					<input type="hidden" th:field="*{emplId}" th:value="${employee.emplId}">
+					<input type="hidden" th:field="*{image}" th:value="${employee.image}">
+				
 					<div class="col-md-8">
 
 						<div class="row">
@@ -209,13 +214,31 @@
 						</div>
 					</div>
 					<!-- Image Section -->
-					<div class="col-md-4">
+					<div class="col-md-4" onclick="hideErrMsg('message')">
 						<label for="" class="col-form-label font-weight-bold">Image:</label>
-						<input type="file" class="form-control mb-2" th:name="file"
-							th:id="file"> <img
+						<div  th:if="${employee.image !=null}">
+						
+							<input type="file" class="form-control mb-2" th:name="file"
+							th:id="file"
+							
+							> <img
 							class="rounded mx-auto d-block mt-2 mb-2"
 							th:src="@{'/emplpics/' + ${employee.image}}"
+							th:alt="' ' +${employee.image}" id="imgPreview1" width="200"
+							
+							>
+						
+						</div>
+						<div  th:unless="${employee.image !=null}">
+							<p th:text="@{'/emplpics/' + ${employee.image}}">image is null</p>
+							<input type="file" class="form-control mb-2" th:name="file"
+							th:id="file"> <img
+							class="rounded mx-auto d-block mt-2 mb-2"
+							th:src="@{'/emplpics/tmp' + ${employee.image}}"
 							th:alt="' ' +${employee.image}" id="imgPreview1" width="200">
+						</div>
+						
+						
 						<!-- 	
 						<img class="rounded mx-auto d-block mb-2"
 							th:src="@{'/emplpics/' + ${employee.image}}"
